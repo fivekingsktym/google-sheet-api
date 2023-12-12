@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google sheet form submission</title>
+    </head>
+<body>
+    <div style="text-align: center;">
+        <h1>Form</h1>
+
+        <form method="post" name="contact-form">
+
+            
+            Name : <input type="text" name="name"><br><br>
+
+            Phone : <input type="number" name="number"> <br><br>
+
+            Email : <input type="text" name="email"> <br><br>
+
+            <input type="submit" id="button" value="Submit">
+        </form>
+    </div>
+
+
+    <script>
+
+        const Api_key = ""
+
+        const form = document.forms['contact-form'];
+        const submitBtn = document.getElementById('button');
+
+        form.addEventListener('submit', (e)=> {
+            submitBtn.value = "Please wait...";
+            e.preventDefault(); //prevent the form submmition
+            fetch(Api_key, { method: "POST", body: new FormData(form), mode: "no-cors"  })
+            .then((response) => {
+                alert("Thank you! your form is submitted successfully.");
+                submitBtn.value = "Submit";
+                console.log("test: ", response)
+                console.log("############test: ", response.message)
+            })
+            // .then(()=> {
+            //     window.location.reload();
+            // })
+            .catch((error) => console.error("Error!", error.message));
+        })
+        
+    </script>
+</body>
+</html>
